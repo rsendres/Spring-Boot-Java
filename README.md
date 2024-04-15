@@ -1,6 +1,5 @@
 # **Portifólio Programação WEB com JAVA: CRUD com SPRING BOOT e Banco de Dados H2**
 
-## OBJETIVOS
 ### Objetivos da Aula Prática:
 - Criar projeto Spring Boot Java
 - Implementar modelo de domínio
