@@ -14,44 +14,52 @@ import br.com.pweb.portifolio.services.exceptions.ResourceNotFoundException;
 public class UserService {
 	
 	@Autowired
-	private UserRepository repository;
+	private UserRepository repository; // Injeção de dependência do UserRepository
 	
+	// Método para buscar todos os usuários
 	public List<User> findAll() {
-		return repository.findAll();
+		return repository.findAll(); // Retorna a lista de todos os usuários
 	}
 	
+	// Método para buscar um usuário pelo ID
 	public User findById(Long id) {
-		Optional<User> usuario = repository.findById(id);
-		return usuario.orElseThrow(() -> new ResourceNotFoundException(id));
+		Optional<User> usuario = repository.findById(id); // Busca o usuário pelo ID no repositório
+		return usuario.orElseThrow(() -> new ResourceNotFoundException(id)); // Lança exceção se o usuário não for encontrado
 	}
 	
+	// Método para inserir um novo usuário
 	public User insert(User usuario) {
-		return repository.save(usuario);
+		return repository.save(usuario); // Insere o novo usuário no banco de dados
 	}
 	
+	// Método para excluir um usuário pelo ID
 	public void del(Long id) {
 		try {
-			repository.deleteById(id);
+			repository.deleteById(id); // Exclui o usuário pelo ID
 		} catch (ResourceNotFoundException e) {
-			
+			throw new ResourceNotFoundException(id); // Lança exceção se o usuário não for encontrado
 		}
 	}
 	
+	// Método para atualizar um usuário pelo ID
 	public User update(Long id, User usuario) {
 		try {
 			User cadastro = repository.getReferenceById(id);
-			updateDados(cadastro, usuario);
-			return repository.save(cadastro);
+			updateDados(cadastro, usuario); // Atualiza os dados do usuário existente com os novos dados
+			return repository.save(cadastro); // Salva e retorna o usuário atualizado
 		} catch (RuntimeException e) {
-			throw new ResourceNotFoundException(id);
+			throw new ResourceNotFoundException(id); // Lança exceção se o usuário não for encontrado
 		}
 	}
 
+	// Método privado para atualizar os dados de um usuário existente com novos dados
 	private void updateDados(User cadastro, User usuario) {
 		// TODO Auto-generated method stub
 		cadastro.setNome(usuario.getNome());
 		cadastro.setEmail(usuario.getEmail());
 		cadastro.setTelefone(usuario.getTelefone());
+		
+		// Adicione mais campos conforme necessário para atualização
 		
 	}
 	

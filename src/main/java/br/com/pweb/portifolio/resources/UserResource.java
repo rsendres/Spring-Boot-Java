@@ -24,38 +24,44 @@ import br.com.pweb.portifolio.services.UserService;
 public class UserResource {
 	
 	@Autowired
-	private UserService service;
+	private UserService service; // Injeção de dependência do serviço UserService
 	
+	// Endpoint para buscar todos os usuários
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {
-		List<User> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<User> list = service.findAll(); // Chama o serviço para buscar todos os usuários
+		return ResponseEntity.ok().body(list); // Retorna a lista de usuários no corpo da resposta HTTP
 	}
 	
+	// Endpoint para buscar um usuário pelo ID
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
-		User usuario = service.findById(id);
-		return ResponseEntity.ok().body(usuario);
+		User usuario = service.findById(id); // Chama o serviço para buscar um usuário pelo ID
+		return ResponseEntity.ok().body(usuario); // Retorna o usuário encontrado no corpo da resposta HTTP
 	}
 	
+	// Endpoint para inserir um novo usuário
 	@PostMapping()
 	public ResponseEntity<User> insert(@RequestBody User usuario) {
-		usuario = service.insert(usuario);
+		usuario = service.insert(usuario); // Chama o serviço para inserir o novo usuário
+		// Monta a URI do recurso criado e retorna como parte da resposta HTTP
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
-		return ResponseEntity.created(uri).body(usuario);
+		return ResponseEntity.created(uri).body(usuario); // Retorna a resposta HTTP com status 201 (Created)
 	}
 	
+	// Endpoint para deletar um usuário pelo ID
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
-		service.del(id);
-		return ResponseEntity.noContent().build();
+		service.del(id); // Chama o serviço para deletar o usuário pelo ID
+		return ResponseEntity.noContent().build(); // Retorna uma resposta HTTP sem conteúdo com status 204 (No Content)
 		
 	}
 	
+	// Endpoint para atualizar um usuário pelo ID
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User usuario) {
-		usuario = service.update(id, usuario);
-		return ResponseEntity.ok().body(usuario);
+		usuario = service.update(id, usuario); // Chama o serviço para atualizar o usuário pelo ID
+		return ResponseEntity.ok().body(usuario); // Retorna o usuário atualizado no corpo da resposta HTTP
 	}
 	
 	

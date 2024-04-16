@@ -3,20 +3,23 @@ package br.com.pweb.portifolio.resources.exceptions;
 import java.io.Serializable;
 import java.time.Instant;
 
+// Classe que representa a estrutura de um erro padrão para respostas de exceção
 public class StandardError implements Serializable {
 
 
 	private static final long serialVersionUID = 1L;
-	private Instant timestamp;
-	private Integer status;
-	private String error;
-	private String message;
-	private String path;
+	private Instant timestamp; // Timestamp do momento em que o erro ocorreu
+	private Integer status; // Código de status HTTP
+	private String error; // Mensagem de erro genérica
+	private String message; // Mensagem específica da exceção
+	private String path; // URI da requisição que causou o erro
 	
+	// Construtor padrão
 	public StandardError() {
 		super();
 	}
 
+	// Construtor com parâmetros para inicializar todos os campos
 	public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
 		super();
 		this.timestamp = timestamp;
@@ -25,7 +28,8 @@ public class StandardError implements Serializable {
 		this.message = message;
 		this.path = path;
 	}
-
+	
+	// Getters e Setters para todos os campos da classe
 	public Instant getTimestamp() {
 		return timestamp;
 	}

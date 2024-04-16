@@ -9,24 +9,27 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+// Declaração da entidade JPA representando a tabela 'tb_users' no banco de dados
 @Entity
 @Table(name = "tb_users")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; // Número de versão para serialização
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
-	private String email;
-	private String telefone;
-	private String password;
+	private Long id; // Chave primária da entidade
+	private String nome; // Nome do usuário
+	private String email; // Email do usuário
+	private String telefone; // Telefone do usuário
+	private String password; // Senha do usuário
 	
+	// Construtor padrão (obrigatório para JPA)
 	public User() {
 		super();
 	}
 
+	// Construtor com parâmetros para inicializar todos os campos da entidade
 	public User(Long id, String nome, String email, String telefone, String password) {
 		super();
 		this.id = id;
@@ -36,6 +39,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	 // Getters e Setters para todos os atributos da entidade
 	public Long getId() {
 		return id;
 	}
@@ -76,11 +80,12 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
+	// Sobrescreve o método hashCode para utilizar apenas o 'id' na comparação
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-
+	// Sobrescreve o método equals para comparar objetos usando apenas o 'id'
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
